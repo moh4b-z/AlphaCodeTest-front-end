@@ -1,59 +1,59 @@
-# AlphaCodeTestFrontEnd
+# AlphaCodeTest - Front End
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+Aplicação Angular para cadastro e gerenciamento de contatos com integração a uma API REST.
 
-## Development server
+## Pré-requisitos
 
-To start a local development server, run:
+Antes de começar, certifique-se de ter instalado:
 
-```bash
-ng serve
-```
+- **Node.js** (versão 18+ recomendada): [Download](https://nodejs.org/)
+- **npm** (gerenciador de pacotes, incluído com Node.js)
+- **Git** (opcional, para clonar o repositório): [Download](https://git-scm.com/)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Clonar o repositório
 
 ```bash
-ng generate component component-name
+git clone https://github.com/seu-usuario/AlphaCodeTest-front-end.git
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Instalar dependências
 
 ```bash
-ng generate --help
+npm install
 ```
 
-## Building
+## Executando o projeto
 
-To build the project run:
+### Desenvolvimento (com hot-reload)
 
 ```bash
-ng build
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## Configuração da API
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+A aplicação conecta à seguinte API:
 
-```bash
-ng test
+```
+http://localhost:8000/api
 ```
 
-## Running end-to-end tests
+Ou se mudou a rota da API mude no arquivo api.config.ts dentro de services.
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
+## Campos do Formulário
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Obrigatórios:
+- **Nome completo**: Máximo 100 caracteres
+- **E-mail**: Validação de formato
+- **Data de nascimento**: Idade entre 18 e 100 anos
+- **Profissão**: Com autocomplete
+- **Celular**: Formatação automática (11) 98493-2039
 
-## Additional Resources
+### Opcionais:
+- **Telefone fixo**: Formatação automática (11) 4033-2019
+- **Whatsapp**: Checkbox (número de celular possui Whatsapp)
+- **Notificações por SMS**: Checkbox
+- **Notificações por E-mail**: Checkbox
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

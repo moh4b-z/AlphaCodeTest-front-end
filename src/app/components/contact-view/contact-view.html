@@ -1,0 +1,295 @@
+<div class="contact-view-container">
+  <!-- Mensagens de feedback -->
+  @if (successMessage) {
+    <div class="alert alert-success">
+      {{ successMessage }}
+    </div>
+  }
+  
+  @if (errorMessage) {
+    <div class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <!-- Formulário de cadastro -->
+  <form class="contact-form" (ngSubmit)="salvarContato()">
+    <div class="form-row">
+      <div class="form-field">
+        <app-fill-field
+          label="Nome completo *"
+          placeholder="Ex.: Mohammad Salim Soares Silva"
+          type="text"
+          [(ngModel)]="formData.nome"
+          name="nome"
+          [maxLength]="100"
+        ></app-fill-field>
+      </div>
+
+      <div class="form-field">
+        <app-fill-field
+          label="Data de nascimento *"
+          placeholder="Ex.: 03/10/2003"
+          type="date"
+          [(ngModel)]="formData.data_nascimento"
+          name="data_nascimento"
+          (ngModelChange)="onDataNascimentoChange()"
+        ></app-fill-field>
+        @if (idadeError) {
+          <div class="idade-error">
+            {{ idadeError }}
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <app-fill-field
+          label="E-mail *"
+          placeholder="Ex.: mohammadsalim@gmail.com"
+          type="email"
+          [(ngModel)]="formData.email"
+          name="email"
+          [maxLength]="100"
+        ></app-fill-field>
+      </div>
+
+      <div class="form-field">
+        <app-fill-field
+          label="Profissão *"
+          placeholder="Ex.: Desenvolvedor Web"
+          type="select"
+          [(ngModel)]="formData.profissao"
+          name="profissao"
+          [maxLength]="100"
+        ></app-fill-field>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <app-fill-field
+          label="Telefone para contato"
+          placeholder="Ex.: (11) 4033-2019"
+          type="tel"
+          [(ngModel)]="formData.telefone_fixo"
+          name="telefone_fixo"
+        ></app-fill-field>
+      </div>
+
+      <div class="form-field">
+        <app-fill-field
+          label="Celular para contato *"
+          placeholder="Ex.: (11) 98493-2039"
+          type="tel"
+          [(ngModel)]="formData.telefone_celular"
+          name="telefone_celular"
+        ></app-fill-field>
+      </div>
+    </div>
+
+    <div class="form-checkboxes">
+      <div class="checkbox-row">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            [(ngModel)]="formData.tem_whatsapp"
+            name="tem_whatsapp"
+            class="checkbox-input"
+          />
+          <span class="checkbox-text">Número de celular possui Whatsapp</span>
+        </label>
+
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            [(ngModel)]="formData.permite_notificacao_email"
+            name="permite_notificacao_email"
+            class="checkbox-input"
+          />
+          <span class="checkbox-text">Enviar notificações por E-mail</span>
+        </label>
+      </div>
+
+      <div class="checkbox-row">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            [(ngModel)]="formData.permite_sms"
+            name="permite_sms"
+            class="checkbox-input"
+          />
+          <span class="checkbox-text">Enviar notificações por SMS</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      @if (isEditMode) {
+        <button type="button" class="btn-secondary" (click)="cancelarEdicao()">
+          Cancelar
+        </button>
+      }
+      <button type="submit" class="btn-primary" [disabled]="isSubmitting">
+        {{ isEditMode ? 'Atualizar contato' : 'Cadastrar contato' }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Campo de pesquisa -->
+  <div class="search-section">
+    <div class="search-container">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Pesquisar por nome..."
+        [(ngModel)]="searchTerm"
+        (input)="buscarContatos()"
+      />
+      <button class="btn-search" (click)="buscarContatosAPI()">
+        Buscar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabela de contatos -->
+  <div class="table-container">
+    @if (isLoading) {
+      <div class="loading">Carregando contatos...</div>
+    } @else if (contatosFiltrados.length === 0) {
+      <div class="empty-state">Nenhum contato encontrado</div>
+    } @else {
+      <table class="contacts-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Data de nascimento</th>
+            <th>E-mail</th>
+            <th>Celular para contato</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (contato of contatosFiltrados; track contato.id) {
+            <tr>
+              <td>{{ contato.nome }}</td>
+              <td>{{ contato.data_nascimento }}</td>
+              <td>{{ contato.email }}</td>
+              <td>{{ getTelefoneCelular(contato) }}</td>
+              <td class="actions-cell">
+                <button
+                  class="btn-icon btn-view"
+                  (click)="visualizarContato(contato)"
+                  title="Visualizar"
+                >
+                  <img src="eye.svg" alt="Visualizar" class="icon-svg" />
+                </button>
+                <button
+                  class="btn-icon btn-edit"
+                  (click)="editarContato(contato)"
+                  title="Editar"
+                >
+                  <img src="brush.svg" alt="Editar" class="icon-svg" />
+                </button>
+                <button
+                  class="btn-icon btn-delete"
+                  (click)="abrirModalDeletar(contato.id)"
+                  title="Deletar"
+                >
+                  <img src="trash.svg" alt="Deletar" class="icon-svg" />
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+  <!-- Modal de Visualização -->
+  @if (showModalVisualizacao && contatoVisualizando) {
+    <div class="modal-overlay" (click)="fecharModalVisualizacao()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Detalhes do Contato</h2>
+          <button class="modal-close" (click)="fecharModalVisualizacao()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="detail-row">
+            <span class="detail-label">Nome Completo:</span>
+            <span class="detail-value">{{ contatoVisualizando.nome }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">E-mail:</span>
+            <span class="detail-value">{{ contatoVisualizando.email }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Data de Nascimento:</span>
+            <span class="detail-value">{{ contatoVisualizando.data_nascimento }} ({{ contatoVisualizando.idade }} anos)</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Profissão:</span>
+            <span class="detail-value">{{ contatoVisualizando.profissao.nome }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Celular:</span>
+            <span class="detail-value">{{ getTelefoneCelular(contatoVisualizando) }}</span>
+          </div>
+          @if (getTelefoneFixo(contatoVisualizando) !== '-') {
+            <div class="detail-row">
+              <span class="detail-label">Telefone Fixo:</span>
+              <span class="detail-value">{{ getTelefoneFixo(contatoVisualizando) }}</span>
+            </div>
+          }
+          <div class="detail-row">
+            <span class="detail-label">WhatsApp:</span>
+            <span class="detail-value">{{ hasWhatsApp(contatoVisualizando) ? 'Sim' : 'Não' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Permite SMS:</span>
+            <span class="detail-value">{{ allowsSMS(contatoVisualizando) ? 'Sim' : 'Não' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Notificações por E-mail:</span>
+            <span class="detail-value">{{ contatoVisualizando.permite_notificacao_email ? 'Sim' : 'Não' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Cadastrado em:</span>
+            <span class="detail-value">{{ contatoVisualizando.created_at }}</span>
+          </div>
+          @if (contatoVisualizando.updated_at !== contatoVisualizando.created_at) {
+            <div class="detail-row">
+              <span class="detail-label">Última atualização:</span>
+              <span class="detail-value">{{ contatoVisualizando.updated_at }}</span>
+            </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" (click)="fecharModalVisualizacao()">Fechar</button>
+          <button class="btn-primary" (click)="editarContato(contatoVisualizando); fecharModalVisualizacao()">Editar</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Modal de Confirmação de Exclusão -->
+  @if (showModalConfirmacao) {
+    <div class="modal-overlay" (click)="fecharModalConfirmacao()">
+      <div class="modal-content modal-confirmacao" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Confirmar Exclusão</h2>
+          <button class="modal-close" (click)="fecharModalConfirmacao()">✕</button>
+        </div>
+        <div class="modal-body">
+          <p class="confirmacao-text">Tem certeza que deseja deletar este contato?</p>
+          <p class="confirmacao-warning">Esta ação não pode ser desfeita.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" (click)="fecharModalConfirmacao()">Cancelar</button>
+          <button class="btn-danger" (click)="confirmarDelecao()">Deletar</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

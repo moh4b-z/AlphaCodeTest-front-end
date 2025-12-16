@@ -1,0 +1,955 @@
+{
+	"info": {
+		"_postman_id": "fa53e187-b5d2-440a-8f3a-a2273aee4c68",
+		"name": "Contatos AlphaCode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33345876"
+	},
+	"item": [
+		{
+			"name": "Criar novo contato",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/contatos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contatos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Completo - celular + fixo",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Pedro Costa\",\r\n  \"email\": \"pedro@email.com\",\r\n  \"data_nascimento\": \"1992-03-10\",\r\n  \"permite_notificacao_email\": false,\r\n  \"profissao\": \"Gerente de Projetos\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11999887766\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": true\r\n  },\r\n  \"telefone_fixo\": {\r\n    \"numero\": \"1144445555\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:26:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 201,\n    \"message\": \"Contato criado com sucesso\",\n    \"data\": {\n        \"id\": 3,\n        \"nome\": \"Pedro Costa\",\n        \"email\": \"pedro@email.com\",\n        \"data_nascimento\": \"10/03/1992\",\n        \"idade\": 33,\n        \"permite_notificacao_email\": false,\n        \"profissao\": {\n            \"id\": 3,\n            \"nome\": \"Gerente de Projetos\"\n        },\n        \"created_at\": \"2025-12-15 19:26:26\",\n        \"updated_at\": \"2025-12-15 19:26:26\",\n        \"telefones\": [\n            {\n                \"id\": 4,\n                \"numero\": \"11999887766\",\n                \"e_celular\": true,\n                \"tem_whatsapp\": true,\n                \"permite_sms\": true\n            },\n            {\n                \"id\": 5,\n                \"numero\": \"1144445555\",\n                \"e_celular\": false,\n                \"tem_whatsapp\": false,\n                \"permite_sms\": false\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "Erro email já existe",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"maria@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:28:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"status_code\": 409,\n    \"message\": \"Email já existente\"\n}"
+				},
+				{
+					"name": "Mínimo - só celular",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:30:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 201,\n    \"message\": \"Contato criado com sucesso\",\n    \"data\": {\n        \"id\": 5,\n        \"nome\": \"Maria Santos\",\n        \"email\": \"mariasantos@email.com\",\n        \"data_nascimento\": \"20/08/1985\",\n        \"idade\": 40,\n        \"permite_notificacao_email\": true,\n        \"profissao\": {\n            \"id\": 2,\n            \"nome\": \"Designer\"\n        },\n        \"created_at\": \"2025-12-15 19:30:35\",\n        \"updated_at\": \"2025-12-15 19:30:35\",\n        \"telefones\": [\n            {\n                \"id\": 3,\n                \"numero\": \"11912345678\",\n                \"e_celular\": true,\n                \"tem_whatsapp\": true,\n                \"permite_sms\": false\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Editar Contato",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11999998888\",\r\n    \"tem_whatsapp\": false,\r\n    \"permite_sms\": true\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/contatos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contatos",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Editar contato só o nome",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"João Silva Atualizado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:59:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Contato atualizado com sucesso\",\n    \"data\": {\n        \"id\": 1,\n        \"nome\": \"João Silva Atualizado\",\n        \"email\": \"joao@email.com\",\n        \"data_nascimento\": \"15/05/1990\",\n        \"idade\": 35,\n        \"permite_notificacao_email\": true,\n        \"profissao\": {\n            \"id\": 1,\n            \"nome\": \"Desenvolvedor\"\n        },\n        \"created_at\": \"2025-12-15 19:25:17\",\n        \"updated_at\": \"2025-12-15 19:59:28\",\n        \"telefones\": [\n            {\n                \"id\": 1,\n                \"numero\": \"11987654321\",\n                \"e_celular\": true,\n                \"tem_whatsapp\": true,\n                \"permite_sms\": true\n            },\n            {\n                \"id\": 2,\n                \"numero\": \"1133334444\",\n                \"e_celular\": false,\n                \"tem_whatsapp\": false,\n                \"permite_sms\": false\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "Editar Contato só o telefone",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11999998888\",\r\n    \"tem_whatsapp\": false,\r\n    \"permite_sms\": true\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 16 Dec 2025 00:26:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Contato atualizado com sucesso\",\n    \"data\": {\n        \"id\": 1,\n        \"nome\": \"João Silva Atualizado\",\n        \"email\": \"joao@email.com\",\n        \"data_nascimento\": \"15/05/1990\",\n        \"idade\": 35,\n        \"permite_notificacao_email\": true,\n        \"profissao\": {\n            \"id\": 1,\n            \"nome\": \"Desenvolvedor\"\n        },\n        \"created_at\": \"2025-12-15 19:25:17\",\n        \"updated_at\": \"2025-12-15 19:59:28\",\n        \"telefones\": [\n            {\n                \"id\": 1,\n                \"numero\": \"11999998888\",\n                \"e_celular\": true,\n                \"tem_whatsapp\": false,\n                \"permite_sms\": true\n            },\n            {\n                \"id\": 2,\n                \"numero\": \"1133334444\",\n                \"e_celular\": false,\n                \"tem_whatsapp\": false,\n                \"permite_sms\": false\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Deletar Contato",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/contatos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contatos",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Deletar Contato",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 16 Dec 2025 00:29:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Item deletado com sucesso\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Listar todos os contatos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/contatos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contatos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Listar todos os contatos",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:52:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Requisição realizada com sucesso\",\n    \"data\": [\n        {\n            \"id\": \"5\",\n            \"nome\": \"Maria Santos\",\n            \"email\": \"mariasantos@email.com\",\n            \"data_nascimento\": \"20/08/1985\",\n            \"idade\": 40,\n            \"permite_notificacao_email\": true,\n            \"profissao\": {\n                \"id\": \"2\",\n                \"nome\": \"Designer\"\n            },\n            \"created_at\": \"2025-12-15 19:30:35\",\n            \"updated_at\": \"2025-12-15 19:30:35\",\n            \"telefones\": [\n                {\n                    \"id\": 3,\n                    \"numero\": \"11912345678\",\n                    \"e_celular\": true,\n                    \"tem_whatsapp\": true,\n                    \"permite_sms\": false\n                }\n            ]\n        },\n        {\n            \"id\": \"3\",\n            \"nome\": \"Pedro Costa\",\n            \"email\": \"pedro@email.com\",\n            \"data_nascimento\": \"10/03/1992\",\n            \"idade\": 33,\n            \"permite_notificacao_email\": false,\n            \"profissao\": {\n                \"id\": \"3\",\n                \"nome\": \"Gerente de Projetos\"\n            },\n            \"created_at\": \"2025-12-15 19:26:26\",\n            \"updated_at\": \"2025-12-15 19:26:26\",\n            \"telefones\": [\n                {\n                    \"id\": 4,\n                    \"numero\": \"11999887766\",\n                    \"e_celular\": true,\n                    \"tem_whatsapp\": true,\n                    \"permite_sms\": true\n                },\n                {\n                    \"id\": 5,\n                    \"numero\": \"1144445555\",\n                    \"e_celular\": false,\n                    \"tem_whatsapp\": false,\n                    \"permite_sms\": false\n                }\n            ]\n        },\n        {\n            \"id\": \"2\",\n            \"nome\": \"Maria Santos\",\n            \"email\": \"maria@email.com\",\n            \"data_nascimento\": \"20/08/1985\",\n            \"idade\": 40,\n            \"permite_notificacao_email\": true,\n            \"profissao\": {\n                \"id\": \"2\",\n                \"nome\": \"Designer\"\n            },\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\",\n            \"telefones\": [\n                {\n                    \"id\": 3,\n                    \"numero\": \"11912345678\",\n                    \"e_celular\": true,\n                    \"tem_whatsapp\": true,\n                    \"permite_sms\": false\n                }\n            ]\n        },\n        {\n            \"id\": \"1\",\n            \"nome\": \"João Silva\",\n            \"email\": \"joao@email.com\",\n            \"data_nascimento\": \"15/05/1990\",\n            \"idade\": 35,\n            \"permite_notificacao_email\": true,\n            \"profissao\": {\n                \"id\": \"1\",\n                \"nome\": \"Desenvolvedor\"\n            },\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\",\n            \"telefones\": [\n                {\n                    \"id\": 1,\n                    \"numero\": \"11987654321\",\n                    \"e_celular\": true,\n                    \"tem_whatsapp\": true,\n                    \"permite_sms\": true\n                },\n                {\n                    \"id\": 2,\n                    \"numero\": \"1133334444\",\n                    \"e_celular\": false,\n                    \"tem_whatsapp\": false,\n                    \"permite_sms\": false\n                }\n            ]\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Buscar contato por ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/contatos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contatos",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Buscar contato por ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/contatos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:55:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Requisição realizada com sucesso\",\n    \"data\": {\n        \"id\": 1,\n        \"nome\": \"João Silva\",\n        \"email\": \"joao@email.com\",\n        \"data_nascimento\": \"15/05/1990\",\n        \"idade\": 35,\n        \"permite_notificacao_email\": true,\n        \"profissao\": {\n            \"id\": 1,\n            \"nome\": \"Desenvolvedor\"\n        },\n        \"created_at\": \"2025-12-15 19:25:17\",\n        \"updated_at\": \"2025-12-15 19:25:17\",\n        \"telefones\": [\n            {\n                \"id\": 1,\n                \"numero\": \"11987654321\",\n                \"e_celular\": true,\n                \"tem_whatsapp\": true,\n                \"permite_sms\": true\n            },\n            {\n                \"id\": 2,\n                \"numero\": \"1133334444\",\n                \"e_celular\": false,\n                \"tem_whatsapp\": false,\n                \"permite_sms\": false\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Buscar contatos por nome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/contatos/buscar?nome=Joã",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contatos",
+						"buscar"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Joã"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Buscar contatos por nome",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/contatos/buscar?nome=Joã",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contatos",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Joã"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Dec 2025 22:57:56 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Requisição realizada com sucesso\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nome\": \"João Silva\",\n            \"email\": \"joao@email.com\",\n            \"data_nascimento\": \"15/05/1990\",\n            \"idade\": 35,\n            \"permite_notificacao_email\": true,\n            \"profissao\": {\n                \"id\": 1,\n                \"nome\": \"Desenvolvedor\"\n            },\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\",\n            \"telefones\": [\n                {\n                    \"id\": 1,\n                    \"numero\": \"11987654321\",\n                    \"e_celular\": true,\n                    \"tem_whatsapp\": true,\n                    \"permite_sms\": true\n                },\n                {\n                    \"id\": 2,\n                    \"numero\": \"1133334444\",\n                    \"e_celular\": false,\n                    \"tem_whatsapp\": false,\n                    \"permite_sms\": false\n                }\n            ]\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Buscar todas as profissoes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/profissoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"profissoes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Buscar todas as profissões",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Maria Santos\",\r\n  \"email\": \"mariasantos@email.com\",\r\n  \"data_nascimento\": \"1985-08-20\",\r\n  \"permite_notificacao_email\": true,\r\n  \"profissao\": \"Designer\",\r\n  \"telefone_celular\": {\r\n    \"numero\": \"11912345678\",\r\n    \"tem_whatsapp\": true,\r\n    \"permite_sms\": false\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/profissoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profissoes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 16 Dec 2025 02:08:45 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Requisição realizada com sucesso\",\n    \"data\": [\n        {\n            \"id\": \"1\",\n            \"nome\": \"Desenvolvedor\",\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\"\n        },\n        {\n            \"id\": \"2\",\n            \"nome\": \"Designer\",\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\"\n        },\n        {\n            \"id\": \"3\",\n            \"nome\": \"Gerente de Projetos\",\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Buscar profissoes pelo nome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/profissoes/buscar?nome=des",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"profissoes",
+						"buscar"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "des"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Buscar profissoes pelo nome",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/profissoes/buscar?nome=des",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profissoes",
+								"buscar"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "des"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 16 Dec 2025 02:11:34 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.5.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Content-Type, Authorization"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"status_code\": 200,\n    \"message\": \"Requisição realizada com sucesso\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nome\": \"Desenvolvedor\",\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\"\n        },\n        {\n            \"id\": 2,\n            \"nome\": \"Designer\",\n            \"created_at\": \"2025-12-15 19:25:17\",\n            \"updated_at\": \"2025-12-15 19:25:17\"\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}

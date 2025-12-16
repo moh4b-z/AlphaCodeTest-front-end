@@ -1,0 +1,71 @@
+<div class="fill-field-container">
+  <label class="field-label">{{ label }}</label>
+  
+  @if (type === 'select') {
+    <div class="select-wrapper">
+      <input
+        type="text"
+        class="field-input"
+        [placeholder]="placeholder"
+        [value]="searchTerm"
+        (input)="onInputChange($any($event.target).value)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [disabled]="disabled"
+        [attr.maxlength]="maxLength > 0 ? maxLength : null"
+      />
+      
+      @if (showSuggestions && filteredProfissoes.length > 0) {
+        <div class="suggestions-dropdown">
+          @for (profissao of filteredProfissoes; track profissao.id) {
+            <div 
+              class="suggestion-item"
+              (mousedown)="selectProfissao(profissao)"
+            >
+              {{ profissao.nome }}
+            </div>
+          }
+        </div>
+      }
+      
+      @if (showSuggestions && filteredProfissoes.length === 0 && searchTerm) {
+        <div class="suggestions-dropdown">
+          <div class="suggestion-item suggestion-new">
+            Adicionar "{{ searchTerm }}"
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (type === 'tel') {
+    <input
+      type="tel"
+      class="field-input"
+      [placeholder]="placeholder"
+      [value]="value"
+      (input)="onPhoneInput($event)"
+      [disabled]="disabled"
+    />
+  } @else {
+    <input
+      [type]="type"
+      class="field-input"
+      [placeholder]="placeholder"
+      [value]="value"
+      (input)="onInputChange($any($event.target).value)"
+      [disabled]="disabled"
+      [attr.maxlength]="maxLength > 0 ? maxLength : null"
+    />
+  }
+  
+  @if (showCharacterWarning && maxLength > 0) {
+    <div class="character-warning">
+      Limite de {{ maxLength }} caracteres atingido
+    </div>
+  }
+  
+  @if (maxLength > 0 && value && !showCharacterWarning) {
+    <div class="character-count">
+      {{ value.length }}/{{ maxLength }}
+    </div>
+  }
+</div>
