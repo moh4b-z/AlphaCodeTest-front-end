@@ -6,7 +6,7 @@ Aplicação Angular para cadastro e gerenciamento de contatos com integração a
 
 Antes de começar, certifique-se de ter instalado:
 
-- **Node.js** (versão 18+ recomendada): [Download](https://nodejs.org/)
+- **Node.js** (versão 22+ recomendada): [Download](https://nodejs.org/)
 - **npm** (gerenciador de pacotes, incluído com Node.js)
 - **Git** (opcional, para clonar o repositório): [Download](https://git-scm.com/)
 
