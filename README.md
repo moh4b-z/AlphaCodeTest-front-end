@@ -13,7 +13,7 @@ Antes de começar, certifique-se de ter instalado:
 ### Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/AlphaCodeTest-front-end.git
+git clone https://github.com/moh4b-z/AlphaCodeTest-front-end.git
 ```
 
 ### Instalar dependências
